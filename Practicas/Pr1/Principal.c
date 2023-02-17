@@ -5,6 +5,7 @@
 */
 
 #include "Pila.h"
+#include "Lista.h"
 #include <stdio.h>
 
 int main(){
