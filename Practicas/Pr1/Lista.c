@@ -96,19 +96,27 @@ void borrarLista(Lista *l){ //elimina todos los nodos de la lista y la deja vacÃ
     while(*l != NULL){
         act = *l;
         *l = act->sig;
-        free(act);
+        free(act); //solo se utiliza en punteros
+    }
+}
+void borrarListaR(Lista *l){
+    //TODO
+    Lista act;
+    if(*l != NULL){
+        act = *l;  //act guarda el contenido al que apunta l
+        *l = act->sig;
+        borrarListaR(l);
+        free(act); //solo se utiliza en punteros
+        
     }
 }
 
 
 // --- TODO ---
-void borrarListaR(Lista *l){
-    //TODO
-}
 void insertarListaR(Lista *l,int elem){
-    //TODO
+    
 }
 int extraerListaR(Lista *l,int elem){
-    //TODO
+    
     return 0;
 }
