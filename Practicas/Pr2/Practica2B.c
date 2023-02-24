@@ -1,7 +1,7 @@
 /*
  ============================================================================
  Name        : Practica2B.c
- Author      : esc
+ Author      : Marta Maleno
  Version     :
  Copyright   : Your copyright notice
  Description : Hello World in C, Ansi-style
@@ -14,28 +14,53 @@
 #include "arbolbb.h"
 
 /**
- * Pide un número "tam" al usuario, y
+ * Pide un nï¿½mero "tam" al usuario, y
  * crea un fichero binario para escritura con el nombre "nfichero"
  * en que escribe "tam" numeros (unsigned int) aleatorios
  * Se utiliza srand(time(NULL)) para establecer la semilla (de la libreria time.h)
- * y rand()%100 para crear un número aleatorio entre 0 y 99.
+ * y rand()%100 para crear un nï¿½mero aleatorio entre 0 y 99.
  */
 void creafichero(char* nfichero)
 {
+	int tam, i, num;
+	printf("Introduce cuantos nï¿½meros quieres generar:\n");
+	scanf("%d", &tam);
+	//asumimos que tam >0
 
-
+	srand(time(NULL));
+	FILE *f = fopen(nfichero, "wb");
+	if(f==NULL){
+		perror("Error al crear fichero de nï¿½meros aleatorios");
+	}else{
+		for(i = 0; i < tam;i++){
+			num = rand()%tam;
+			fwrite(&num,sizeof(int),1,f);
+		}
+		fclose(f);
+	}
 }
 /**
- * Muestra por pantalla la lista de números (unsigned int) almacenada
+ * Muestra por pantalla la lista de nï¿½meros (unsigned int) almacenada
  * en el fichero binario "nfichero"
  */
 void muestrafichero(char* nfichero)
 {
+	FILE *f = fopen(nfichero, "rb");
+	if(f == NULL){
+		perror("Error al mostrar el fichero");
+	}else{
+		int num;
+		while(fread(&num,sizeof(int), 1, f)){
+			printf("%d ", num);
+		}
+		printf("\n");
+		fclose(f);
+	}
 
 }
 
 /**
- * Guarda en el arbol "*miarbol" los números almacenados en el fichero binario "nfichero"
+ * Guarda en el arbol "*miarbol" los nï¿½meros almacenados en el fichero binario "nfichero"
  */
 
 void cargaFichero(char* nfichero, T_Arbol* miarbol)
@@ -45,6 +70,9 @@ void cargaFichero(char* nfichero, T_Arbol* miarbol)
 
 int main(void) {
 	char nfichero[50];
+
+	setvbuf(stdout, NULL, _IONBF, 0);
+
 	printf ("Introduce el nombre del fichero binario:\n");
 	fflush(stdout);
 	scanf ("%s",nfichero);
