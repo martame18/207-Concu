@@ -1,3 +1,4 @@
 #Ignora los archivos del sistema Mac
 .DS_store
+.DS_Store
 .dSYM
