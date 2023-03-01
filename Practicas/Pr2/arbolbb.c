@@ -47,10 +47,18 @@
 	}
 	// Muestra el contenido del �rbol en InOrden
 	void Mostrar(T_Arbol arbol){
-
+		if(arbol!=NULL){ //caso base
+			Mostrar(arbol->izq);
+			printf("%u", arbol->dato);
+			Mostrar(arbol->der);
+		}
 	}
 	// Guarda en disco el contenido del arbol
 	void Salvar(T_Arbol arbol, FILE* fichero){
-
+		if(arbol!=NULL){
+			Salvar(arbol->izq, fichero);
+			fwrite(&(arbol->dato), sizeof(unsigned), 1, fichero);
+        	Salvar(arbol->der, fichero);
+		}
 	}
 
