@@ -5,3 +5,6 @@
 
 #Ignora los ejecutables
 .exe
+
+#Ignora archivos de virtual studio code
+.vscode
